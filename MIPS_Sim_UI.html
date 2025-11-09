@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MIPS Simulator</title>
+  <link rel="stylesheet" href="MIPS_Sim_Style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <h1>MIPS Simulator</h1>
+      <div class="sub">
+        Single-step or run • Registers • Memory • Pipeline • No hazards
+      </div>
+    </div>
+  </header>
+
+  <!-- Main container (replaces <main>) -->
+  <div id="main" class="wrap">
+    <section class="grid">
+      <!-- Program Card -->
+      <div class="card">
+        <div class="hd">Program</div>
+        <div class="bd">
+          <textarea id="src"></textarea>
+          <div class="h-8"></div>
+          <div class="controls">
+            <button id="btnLoad">Load</button>
+            <button id="btnStep">Step ⏭</button>
+            <button id="btnRun" class="primary">Run ▶</button>
+            <button id="btnReset" class="danger">Reset ⟲</button>
+
+            <span class="spacer"></span>
+
+            <!-- Debug Mode Explanation -->
+            <label class="small-label debug-label">
+              <input type="checkbox" id="chkDebug" /> Debug
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Card -->
+      <div class="card">
+        <div class="hd">Status</div>
+        <div class="bd">
+          <div class="row gap-8 wrap-row">
+            <span class="pill">Cycle: <span id="cycle">0</span></span>
+            <span class="pill">PC: <span id="pc">0x00000000</span></span>
+            <span class="pill accent">Loaded: <span id="loaded">No</span></span>
+            <span class="pill">Instructions: <span id="icount">0</span></span>
+            <span class="pill">Halted: <span id="halted">No</span></span>
+          </div>
+
+          <div class="h-8"></div>
+
+          <div class="tabs" id="tabs">
+            <div class="tab active" data-tab="regs">Registers</div>
+            <div class="tab" data-tab="mem">Memory</div>
+            <div class="tab" data-tab="pipeline">Pipeline</div>
+            <div class="tab" data-tab="signals">Control</div>
+            <div class="tab" data-tab="console">Console</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Pane Section -->
+    <section class="card">
+      <div class="bd">
+        <!-- Registers Pane -->
+        <div id="pane-regs">
+          <div class="pane-grid">
+            <div>
+              <h3>Register File</h3>
+              <table id="tblRegs">
+                <thead>
+                  <tr>
+                    <th>Reg</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div>
+              <h3>Hi/Lo & PC</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>HI</td>
+                    <td id="hi">0x00000000</td>
+                  </tr>
+                  <tr>
+                    <td>LO</td>
+                    <td id="lo">0x00000000</td>
+                  </tr>
+                  <tr>
+                    <td>PC</td>
+                    <td id="pc2" class="bold">0x00000000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Memory Pane -->
+        <div id="pane-mem" style="display:none">
+          <div class="row gap-10 mb-8">
+            <h3 class="no-margin">Memory</h3>
+            <span class="spacer"></span>
+
+            <label class="small-label">Page</label>
+            <input type="number" id="memPage" value="0" min="0" step="1" class="mem-input" />
+
+            <label class="small-label">Rows</label>
+            <input type="number" id="memRows" value="64" min="16" step="16" class="mem-input" />
+
+            <button id="memRefresh">Refresh</button>
+          </div>
+
+          <table id="tblMem">
+            <thead>
+              <tr>
+                <th>Addr</th>
+                <th>+0</th>
+                <th>+1</th>
+                <th>+2</th>
+                <th>+3</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Pipeline Pane -->
+        <div id="pane-pipeline" style="display:none">
+          <h3>Pipeline (visual)</h3>
+          <div class="pipeline" id="pipe"></div>
+        </div>
+
+        <!-- Control Signals Pane -->
+        <div id="pane-signals" style="display:none">
+          <h3>Control Signals</h3>
+          <div class="grid-3" id="signals"></div>
+        </div>
+
+        <!-- Console Pane -->
+        <div id="pane-console" style="display:none">
+          <h3>Console</h3>
+          <div class="list" id="console"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="MIPS_Sim_Script.js"></script>
+</body>
+
+</html>

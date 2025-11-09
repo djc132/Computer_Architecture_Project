@@ -1,0 +1,284 @@
+:root {
+  --bg: #0b0d10;
+  --panel: #14181d;
+  --muted: #2a313a;
+  --ink: #e8eef6;
+  --sub: #9fb1c8;
+  --accent: #6ea8fe;
+  --danger: #ff6b6b;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(11, 13, 16, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #1b2026;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.sub {
+  color: var(--sub);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin: 16px auto;
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid #1b2026;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hd {
+  padding: 12px 14px;
+  border-bottom: 1px solid #1b2026;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bd {
+  padding: 12px 14px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+button {
+  border: 1px solid var(--muted);
+  background: #0f1318;
+  color: var(--ink);
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #12171d;
+}
+
+.primary {
+  border-color: var(--accent);
+}
+
+.danger {
+  border-color: var(--danger);
+  color: #ffdede;
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.pill.accent {
+  border-color: var(--accent);
+  color: #cfe0ff;
+}
+
+.spacer {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  min-height: 170px;
+  background: #0f1318;
+  border: 1px dashed var(--muted);
+  border-radius: 12px;
+  color: var(--ink);
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  resize: vertical;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 6px 10px;
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab.active {
+  border-color: var(--accent);
+  color: #cfe0ff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #1b2026;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+th {
+  color: var(--sub);
+  font-weight: 600;
+}
+
+.pane-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.stage {
+  border: 1px solid #1b2026;
+  border-radius: 10px;
+  padding: 8px;
+  background: #0f1318;
+}
+
+.stage h4 {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  color: #cfe0ff;
+}
+
+.mono {
+  font-family: var(--mono);
+  white-space: pre-wrap;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+/* --- Utility Classes (moved from inline) --- */
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.wrap-row {
+  flex-wrap: wrap;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.h-8 {
+  height: 8px;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.small-label {
+  color: var(--sub);
+  font-size: 12px;
+}
+
+.debug-label {
+  margin-left: 8px;
+}
+
+.mem-input {
+  width: 80px;
+  background: #0f1318;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  color: var(--ink);
+  padding: 4px 6px;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pane-grid,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
