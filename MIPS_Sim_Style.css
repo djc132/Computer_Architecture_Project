@@ -218,7 +218,7 @@ th {
   overflow: auto;
 }
 
-/* --- Utility Classes (moved from inline) --- */
+/* --- Utility Classes --- */
 .row {
   display: flex;
   align-items: center;
@@ -282,3 +282,4 @@ th {
     grid-template-columns: 1fr;
   }
 }
+
