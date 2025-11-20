@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize simulator instance
   const simulator = new MIPSSimulator();
-
+ 
   // Helpers
   const toHex32 = (v) =>
     "0x" + (v >>> 0).toString(16).padStart(8, "0").toUpperCase();
@@ -617,7 +617,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnMemGoto.click();
     }
   });
-
+  
   // Initialize UI
   updateUI();
   showTab("regs");
