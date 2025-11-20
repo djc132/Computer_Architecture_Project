@@ -1,0 +1,22 @@
+# Just copy and paste this into the textarea in UI and click load
+
+# Simple addition program
+addi $t0, $zero, 10    # $t0 = 10
+addi $t1, $zero, 20    # $t1 = 20
+add $t2, $t0, $t1      # $t2 = $t0 + $t1
+
+# Load/Store test
+addi $sp, $zero, 0x1000   # Set stack pointer
+sw $t2, 0($sp)            # Store $t2 to memory
+lw $t3, 0($sp)            # Load back to $t3
+
+# Branch test
+loop:
+addi $t4, $t4, 1       # Increment $t4
+beq $t4, $t0, done     # Branch if $t4 == $t0
+j loop                 # Jump back to loop
+done:
+
+# System call to exit
+addi $v0, $zero, 10
+syscall

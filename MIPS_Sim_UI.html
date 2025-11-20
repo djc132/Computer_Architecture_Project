@@ -128,14 +128,21 @@
             <h3 class="no-margin">Memory</h3>
             <span class="spacer"></span>
 
+            <label class="small-label">Address (hex)</label>
+            <input type="text" id="memAddress" placeholder="0x1000" class="mem-input" style="width: 100px;" />
+
             <label class="small-label">Page</label>
             <input type="number" id="memPage" value="0" min="0" step="1" class="mem-input" />
 
             <label class="small-label">Rows</label>
             <input type="number" id="memRows" value="64" min="16" step="16" class="mem-input" />
 
+            <button id="memGoto">Go to Address</button>
             <button id="memRefresh">Refresh</button>
+            <button id="memShowUsed">Show Used Memory</button>
           </div>
+          
+          <div class="mono small-label mem-info" style="margin-bottom: 8px; color: #9fb1c8;"></div>
 
           <table id="tblMem">
             <thead>
@@ -172,6 +179,7 @@
     </section>
   </div>
 
+  <script src="MIPS_Sim_Backend.js"></script>
   <script src="MIPS_Sim_Script.js"></script>
 </body>
 
