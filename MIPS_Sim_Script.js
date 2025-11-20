@@ -100,14 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Update registers display
   function updateRegisters() {
-    registersTableBody.innerHTML = "";
+  registersTableBody.innerHTML = "";
     // Access registers directly from simulator
-    for (let i = 0; i < 32; i++) {
-      const row = document.createElement("tr");
-      const regName = i === 0 ? "$zero" : `$${i}`;
+  for (let i = 0; i < 32; i++) {
+    const row = document.createElement("tr");
+    const regName = i === 0 ? "$zero" : `$${i}`;
       const value = simulator.registers[i] || 0;
       row.innerHTML = `<td>${regName}</td><td>${toHex32(value)}</td>`;
-      registersTableBody.appendChild(row);
+    registersTableBody.appendChild(row);
     }
   }
 
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startAddr = page * bytesPerPage;
     }
 
-    memoryTableBody.innerHTML = "";
+  memoryTableBody.innerHTML = "";
     const usedAddresses = Array.from(simulator.usedMemoryAddresses);
     
     for (let row = 0; row < rows; row++) {
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const b2 = simulator.memory[addr + 2] || 0;
       const b3 = simulator.memory[addr + 3] || 0;
 
-      const tr = document.createElement("tr");
+    const tr = document.createElement("tr");
       
       // Highlight rows that contain used memory
       const wordUsed = usedAddresses.some(usedAddr => 
@@ -164,16 +164,16 @@ document.addEventListener("DOMContentLoaded", () => {
         tr.style.fontWeight = 'bold';
       }
       
-      tr.innerHTML = `
-        <td>${toHex32(addr)}</td>
+    tr.innerHTML = `
+      <td>${toHex32(addr)}</td>
         <td>${toHex8(b0)}</td>
         <td>${toHex8(b1)}</td>
         <td>${toHex8(b2)}</td>
         <td>${toHex8(b3)}</td>
-      `;
-      memoryTableBody.appendChild(tr);
-    }
-    
+    `;
+    memoryTableBody.appendChild(tr);
+  }
+
     // Show a message if memory has been used
     if (memoryRange.hasData) {
       // Add info message above table (we'll add this via a small info div)
@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function updatePipeline() {
     const debugLog = simulator.getDebugLog();
 
-    pipelineContainer.innerHTML = "";
-    const pipelineStages = [
+  pipelineContainer.innerHTML = "";
+  const pipelineStages = [
       { name: "Instruction Fetch", id: "IF", offset: 0 },      // Current instruction
       { name: "Instruction Decode", id: "ID", offset: 1 },     // 1 cycle ago
       { name: "Execute", id: "EX", offset: 2 },                // 2 cycles ago
@@ -235,11 +235,11 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Default idle state
       pipelineStages.forEach((stage) => {
-        const stageBox = document.createElement("div");
-        stageBox.className = "stage";
+    const stageBox = document.createElement("div");
+    stageBox.className = "stage";
         stageBox.innerHTML = `<h4>${stage.name}</h4><div class="mono">— idle —</div>`;
-        pipelineContainer.appendChild(stageBox);
-      });
+    pipelineContainer.appendChild(stageBox);
+  });
     }
   }
 
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const debugLog = simulator.getDebugLog();
     const lastEntry = debugLog.length > 0 ? debugLog[debugLog.length - 1] : null;
 
-    controlContainer.innerHTML = "";
+  controlContainer.innerHTML = "";
     
     if (lastEntry && lastEntry.control && simulator.debugMode) {
       // Show control signals from last executed instruction
@@ -283,18 +283,18 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "ALUOp", value: 0 },
       ];
       defaultSignals.forEach((signal) => {
-        const signalCard = document.createElement("div");
-        signalCard.className = "stage";
+    const signalCard = document.createElement("div");
+    signalCard.className = "stage";
         const displayValue = typeof signal.value === 'boolean' ? signal.value.toString() : signal.value.toString();
         signalCard.innerHTML = `<h4>${signal.name}</h4><div class="mono">${displayValue}</div>`;
-        controlContainer.appendChild(signalCard);
-      });
+    controlContainer.appendChild(signalCard);
+  });
     }
   }
 
   // Update console with debug logs or messages
   function updateConsole() {
-    consoleContainer.innerHTML = "";
+  consoleContainer.innerHTML = "";
     
     if (simulator.debugMode) {
       const debugLog = simulator.getDebugLog();
@@ -374,16 +374,16 @@ document.addEventListener("DOMContentLoaded", () => {
           line2.textContent = `• Use Step ⏭ or Run ▶ to execute.`;
           consoleContainer.appendChild(line2);
         } else {
-          const startupMessages = [
-            "Welcome to the MIPS Simulator UI.",
-            "Paste or load a program to begin.",
-            "Use Run ▶ or Step ⏭ to execute instructions.",
-          ];
-          startupMessages.forEach((msg) => {
-            const line = document.createElement("div");
-            line.className = "mono";
-            line.textContent = `• ${msg}`;
-            consoleContainer.appendChild(line);
+  const startupMessages = [
+    "Welcome to the MIPS Simulator UI.",
+    "Paste or load a program to begin.",
+    "Use Run ▶ or Step ⏭ to execute instructions.",
+  ];
+  startupMessages.forEach((msg) => {
+    const line = document.createElement("div");
+    line.className = "mono";
+    line.textContent = `• ${msg}`;
+    consoleContainer.appendChild(line);
           });
         }
       }
@@ -426,6 +426,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
+      // Clear console messages before loading new program
+      consoleMessages = [];
+      
       // Reset simulator state before loading new program
       simulator.reset();
       simulator.loaded = false; // Allow loading
@@ -433,12 +436,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = simulator.loadProgram(programText);
       addConsoleMessage(`Program loaded successfully! ${result.instructions} instruction(s) parsed.`, "success");
       
-      // Show instruction listing
+      // Show instruction listing (only first 50 to avoid console spam)
       const listing = simulator.getListing();
-      addConsoleMessage("Instruction Listing:");
-      listing.forEach((inst, idx) => {
-        addConsoleMessage(`  ${inst.address}: ${inst.hex} | ${inst.assembly}`);
-      });
+      addConsoleMessage(`Instruction Listing (${listing.length} total):`);
+      
+      if (listing.length > 50) {
+        // Show first 25 and last 25
+        for (let i = 0; i < 25; i++) {
+          addConsoleMessage(`  ${listing[i].address}: ${listing[i].hex} | ${listing[i].assembly}`);
+        }
+        addConsoleMessage(`  ... (${listing.length - 50} instructions omitted) ...`);
+        for (let i = listing.length - 25; i < listing.length; i++) {
+          addConsoleMessage(`  ${listing[i].address}: ${listing[i].hex} | ${listing[i].assembly}`);
+        }
+      } else {
+        // Show all if less than 50
+        listing.forEach((inst, idx) => {
+          addConsoleMessage(`  ${inst.address}: ${inst.hex} | ${inst.assembly}`);
+        });
+      }
       
       updateUI();
     } catch (error) {
