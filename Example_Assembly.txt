@@ -1,9 +1,13 @@
 # Just copy and paste this into the textarea in UI and click load
 
+# Note: MIPS register mapping:
+# $t0 = register 8, $t1 = register 9, $t2 = register 10, etc.
+# Register 1 is $at (assembler temporary), not $t1
+
 # Simple addition program
-addi $t0, $zero, 10    # $t0 = 10
-addi $t1, $zero, 20    # $t1 = 20
-add $t2, $t0, $t1      # $t2 = $t0 + $t1
+addi $t0, $zero, 10    # $t0 (register 8) = 10
+addi $t1, $zero, 20    # $t1 (register 9) = 20
+add $t2, $t0, $t1      # $t2 (register 10) = $t0 + $t1
 
 # Load/Store test
 addi $sp, $zero, 0x1000   # Set stack pointer
