@@ -1,5 +1,8 @@
 # MIPS Simulator
 
+Worked on by:
+Daniel Cabezas, Wyatt Churchman, Jackson Berdou, Srikar Andhavarapu
+
 A web-based MIPS processor simulator for executing MIPS assembly programs.
 
 ## Quick Start
